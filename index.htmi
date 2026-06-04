@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Star Voyage: Cosmic Chinese Navigator</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;800&family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Kanit', 'Noto Sans SC', sans-serif;
+            background-color: #03030f;
+            overscroll-behavior: contain;
+        }
+        .chinese-text {
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        /* Custom Neon Glows */
+        .neon-glow-cyan {
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.6);
+        }
+        .neon-glow-purple {
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+        }
+        .neon-text-cyan {
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.8);
+        }
+        .neon-text-purple {
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.8);
+        }
+        /* Starfield background animation */
+        .starfield {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            overflow: hidden;
+            z-index: 0;
+        }
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite ease-in-out;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        /* Custom smooth scrollbar */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(168, 85, 247, 0.4);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="text-slate-100 flex justify-center items-center h-screen w-screen overflow-hidden">
+
+    <!-- Background Space Scene -->
+    <div class="starfield" id="starfield"></div>
+
+    <!-- Main Mobile Frame Container -->
+    <main class="w-full max-w-md h-full md:h-[92vh] md:max-h-[850px] bg-slate-950/80 backdrop-blur-lg md:rounded-3xl border border-slate-800/80 shadow-2xl overflow-hidden flex flex-col relative z-10">
+        
+        
+        <!-- SCREEN 1: Home / Main Menu -->
+        <section id="screen-home" class="flex-1 flex flex-col justify-between p-6 relative">
+            <!-- Header Title -->
+            <div class="text-center mt-8">
+                <div class="inline-flex items-center gap-2 px-3 py-1 bg-purple-500/10 border border-purple-500/30 rounded-full text-purple-300 text-xs mb-3">
+                    <i class="fa-solid fa-user-astronaut animate-pulse"></i> นิวเกียร์ อะคาเดมี่ภูมิใจเสนอ
+                </div>
+                <h1 class="text-4xl font-extrabold tracking-wider bg-gradient-to-r from-cyan-400 via-violet-400 to-fuchsia-500 bg-clip-text text-transparent">STAR VOYAGE</h1>
+                <h2 class="text-2xl font-black text-slate-300 tracking-widest mt-1 chinese-text">星际航行</h2>
+                <p class="text-xs text-slate-400 mt-2">ผจญภัยห้วงดวงดาว ฝึกภาษาจีนดาราศาสตร์สุดท้าทาย</p>
+            </div>
+
+            <!-- Orbit Visualization -->
+            <div class="relative w-48 h-48 mx-auto flex items-center justify-center">
+                <div class="absolute w-44 h-44 rounded-full border border-dashed border-cyan-500/20 animate-[spin_20s_linear_infinite]"></div>
+                <div class="absolute w-32 h-32 rounded-full border border-dashed border-purple-500/30 animate-[spin_10s_linear_infinite_reverse]"></div>
+                <div class="absolute w-20 h-20 rounded-full bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center neon-glow-cyan">
+                    <i class="fa-solid fa-shuttle-space text-3xl text-white transform -rotate-45"></i>
+                </div>
+                <!-- Mini satellite dots -->
+                <div class="absolute top-2 left-6 text-yellow-400 text-sm animate-bounce"><i class="fa-solid fa-star"></i></div>
+                <div class="absolute bottom-4 right-8 text-cyan-400 text-xs"><i class="fa-solid fa-moon"></i></div>
+            </div>
+
+            <!-- Navigation Controls / Menu buttons -->
+            <div class="space-y-3 mb-6">
+                <button onclick="changeScreen('screen-levels')" class="w-full bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-400 hover:to-purple-500 text-white font-bold py-4 px-6 rounded-2xl shadow-lg transition duration-200 transform active:scale-95 flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-play text-lg"></i> เริ่มต้นระบบบินดวงดาว
+                </button>
+                <div class="grid grid-cols-2 gap-3">
+                    <button onclick="changeScreen('screen-codex')" class="bg-slate-900/90 border border-slate-800 hover:border-slate-700 py-3 rounded-xl transition duration-200 active:scale-95 flex items-center justify-center gap-2 text-sm text-cyan-400 font-semibold">
+                        <i class="fa-solid fa-book-atlas"></i> คลังคำศัพท์
+                    </button>
+                    <button onclick="showInstructionModal()" class="bg-slate-900/90 border border-slate-800 hover:border-slate-700 py-3 rounded-xl transition duration-200 active:scale-95 flex items-center justify-center gap-2 text-sm text-purple-400 font-semibold">
+                        <i class="fa-solid fa-circle-info"></i> วิธีการเล่น
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="text-center text-[10px] text-slate-500">
+                <p>© 2026 Star Voyage. Learn & Conquer the cosmos.</p>
+            </div>
+        </section>
+
+        
+        <!-- SCREEN 2: Levels Selector Map -->
+        <section id="screen-levels" class="hidden flex-1 flex flex-col p-6 overflow-y-auto">
+            <div class="flex items-center justify-between mb-6">
+                <button onclick="changeScreen('screen-home')" class="w-10 h-10 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-300 hover:bg-slate-800">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <h3 class="text-lg font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">เลือกเส้นทางผจญภัย</h3>
+                <div class="w-10"></div> <!-- Spacer -->
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="grid grid-cols-2 gap-3 bg-slate-900/40 border border-slate-800 p-3 rounded-2xl mb-6">
+                <div class="text-center">
+                    <p class="text-[10px] text-slate-400">เหรียญพลังงาน</p>
+                    <p class="text-sm font-bold text-yellow-400"><i class="fa-solid fa-coins mr-1"></i> <span id="user-gold">150</span></p>
+                </div>
+                <div class="text-center">
+                    <p class="text-[10px] text-slate-400">คำศัพท์คลังข้อมูล</p>
+                    <p class="text-sm font-bold text-cyan-400"><i class="fa-solid fa-rocket mr-1"></i> <span id="user-vocabulary">0/15</span></p>
+                </div>
+            </div>
+
+            <!-- Level Cards Space Map -->
+            <div class="space-y-4 flex-1">
+                <!-- Level 1 -->
+                <div class="bg-gradient-to-r from-cyan-950/40 to-slate-900 border border-cyan-500/30 rounded-2xl p-4 flex items-center justify-between relative overflow-hidden group">
+                    <div class="absolute -right-6 -bottom-6 text-cyan-500/10 text-7xl"><i class="fa-solid fa-sun animate-spin-slow"></i></div>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-cyan-500/20 flex items-center justify-center border border-cyan-500/40 text-cyan-400 text-xl font-black">
+                            1
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-100 flex items-center gap-2">ระบบสุริยะนำทาง <span class="text-xs bg-cyan-500/10 text-cyan-300 px-2 py-0.5 rounded-full border border-cyan-500/20">ง่าย</span></h4>
+                            <p class="text-xs text-slate-400">ดาวพุธถึงเนปจูน 太阳系</p>
+                        </div>
+                    </div>
+                    <button onclick="startLevel(1)" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs transition active:scale-95">
+                        ล่องยาน <i class="fa-solid fa-chevron-right ml-1"></i>
+                    </button>
+                </div>
+
+                <!-- Level 2 -->
+                <div class="bg-gradient-to-r from-purple-950/40 to-slate-900 border border-purple-500/30 rounded-2xl p-4 flex items-center justify-between relative overflow-hidden group">
+                    <div class="absolute -right-6 -bottom-6 text-purple-500/10 text-7xl"><i class="fa-solid fa-meteor"></i></div>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center border border-purple-500/40 text-purple-400 text-xl font-black">
+                            2
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-100 flex items-center gap-2">ฝ่าฝูงอุกกาบาตดาวร่วง <span class="text-xs bg-purple-500/10 text-purple-300 px-2 py-0.5 rounded-full border border-purple-500/20">ปานกลาง</span></h4>
+                            <p class="text-xs text-slate-400">ยิงทำลายอุกกาบาตคำศัพท์ 恒星/黑洞</p>
+                        </div>
+                    </div>
+                    <button onclick="startLevel(2)" class="bg-purple-500 hover:bg-purple-400 text-white font-bold px-4 py-2 rounded-xl text-xs transition active:scale-95">
+                        ยิงป้องกัน <i class="fa-solid fa-chevron-right ml-1"></i>
+                    </button>
+                </div>
+
+                <!-- Level 3 -->
+                <div class="bg-gradient-to-r from-rose-950/40 to-slate-900 border border-rose-500/30 rounded-2xl p-4 flex items-center justify-between relative overflow-hidden group">
+                    <div class="absolute -right-6 -bottom-6 text-rose-500/10 text-7xl"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-rose-500/20 flex items-center justify-center border border-rose-500/40 text-rose-400 text-xl font-black">
+                            3
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-100 flex items-center gap-2">ถอดรหัสกลุ่มดวงดาว <span class="text-xs bg-rose-500/10 text-rose-300 px-2 py-0.5 rounded-full border border-rose-500/20">ยาก</span></h4>
+                            <p class="text-xs text-slate-400">จักรราศีและกลุ่มดาวโบราณ 星座</p>
+                        </div>
+                    </div>
+                    <button onclick="startLevel(3)" class="bg-rose-500 hover:bg-rose-400 text-white font-bold px-4 py-2 rounded-xl text-xs transition active:scale-95">
+                        ประกอบดาว <i class="fa-solid fa-chevron-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        
+        <!-- SCREEN 3: Level 1 Gameplay (Solar Explorer) -->
+        <section id="screen-game-l1" class="hidden flex-1 flex flex-col p-5 justify-between">
+            <!-- Header bar -->
+            <div class="flex items-center justify-between border-b border-slate-850 pb-3">
+                <button onclick="quitGamePrompt()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+                <div class="text-center">
+                    <span class="text-xs text-cyan-400 tracking-widest font-semibold uppercase">ด่านที่ 1</span>
+                    <h4 class="text-sm font-bold">สำรวจระบบสุริยะ 太阳系</h4>
+                </div>
+                <div class="flex items-center gap-1.5 bg-slate-900 px-2.5 py-1 rounded-full border border-slate-800 text-xs">
+                    <span id="l1-score" class="font-black text-cyan-400">0</span>
+                    <span class="text-slate-500">คะแนน</span>
+                </div>
+            </div>
+
+            <!-- Interactive Solar Question Display -->
+            <div class="flex-1 flex flex-col justify-center items-center py-4">
+                <!-- Visual Container -->
+                <div class="relative w-40 h-40 flex items-center justify-center mb-4">
+                    <div class="absolute w-36 h-36 rounded-full border border-dashed border-cyan-500/20 animate-pulse"></div>
+                    <div id="l1-planet-graphics" class="relative z-10 w-28 h-28 rounded-full bg-gradient-to-tr from-cyan-600 to-indigo-800 flex flex-col items-center justify-center shadow-lg transition-transform duration-300">
+                        <!-- Custom Planet Graphics by JS -->
+                        <span id="l1-planet-icon" class="text-5xl">🪐</span>
+                    </div>
+                </div>
+
+                <!-- Pronunciation Trigger Button -->
+                <div class="flex flex-col items-center">
+                    <button onclick="speakChineseText(document.getElementById('l1-chinese').innerText)" class="px-4 py-1.5 bg-white/5 border border-white/10 hover:bg-white/10 rounded-full flex items-center gap-2 text-xs text-yellow-400 active:scale-95 transition">
+                        <i class="fa-solid fa-volume-high"></i> ฟังเสียงจีนออกเสียง
+                    </button>
+                    <h2 id="l1-chinese" class="text-5xl font-black mt-3 tracking-wide text-white chinese-text">地球</h2>
+                    <h3 id="l1-pinyin" class="text-lg font-semibold text-cyan-300 mt-1">Dìqiú</h3>
+                </div>
+            </div>
+
+            <!-- Quiz Choice Controls -->
+            <div class="space-y-2 mb-4">
+                <p class="text-center text-xs text-slate-400 mb-2">ดาวเคราะห์ข้างต้น แปลว่าอย่างไรในระบบสุริยะ?</p>
+                <div id="l1-options" class="grid grid-cols-2 gap-3">
+                    <!-- Options buttons injected dynamically by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SCREEN 4: Level 2 Gameplay (Meteor Defense - Canvas Style / Real-time action) -->
+        <section id="screen-game-l2" class="hidden flex-1 flex flex-col p-5 justify-between relative">
+            <!-- Header bar -->
+            <div class="flex items-center justify-between border-b border-slate-850 pb-3 z-20">
+                <button onclick="quitGamePrompt()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+                <div class="text-center">
+                    <span class="text-xs text-purple-400 tracking-widest font-semibold uppercase">ด่านที่ 2</span>
+                    <h4 class="text-sm font-bold">ฝ่าดงอุกกาบาต</h4>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="text-right text-xs bg-slate-900 px-2 py-1 rounded-full border border-slate-800 text-rose-400 font-bold" id="l2-hp-wrap">
+                        <i class="fa-solid fa-heart"></i> <span id="l2-hp">3</span>
+                    </div>
+                    <div class="text-right text-xs bg-slate-900 px-2 py-1 rounded-full border border-slate-800 text-cyan-400 font-bold">
+                        <span id="l2-score">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Shooter Area -->
+            <div class="flex-1 relative overflow-hidden bg-slate-950/80 border border-slate-800/80 rounded-2xl my-4 flex flex-col justify-between" id="meteor-field">
+                <!-- Instruction Overlay -->
+                <div id="meteor-start-overlay" class="absolute inset-0 bg-slate-950/90 z-20 flex flex-col items-center justify-center p-4 text-center">
+                    <i class="fa-solid fa-meteor text-5xl text-purple-500 mb-3 animate-bounce"></i>
+                    <h5 class="text-base font-bold text-white">เตรียมอาวุธทำลายระบบอุกกาบาต</h5>
+                    <p class="text-xs text-slate-400 mt-2 max-w-[280px]">เลือกยิงอุกกาบาตให้ตรงกับคำถามที่ยานแม่ของคุณสแกนส่งรหัสมา!</p>
+                    <button onclick="startMeteorGame()" class="mt-4 bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs px-6 py-2.5 rounded-full">
+                        เปิดพลังงานเกราะยาน
+                    </button>
+                </div>
+
+                <!-- Laser Target scan display -->
+                <div class="w-full bg-slate-900/60 p-2 border-b border-slate-800 flex items-center justify-between z-10">
+                    <div class="flex items-center gap-2">
+                        <span class="text-rose-400 text-xs animate-pulse"><i class="fa-solid fa-satellite"></i> TARGET:</span>
+                        <span id="l2-target-word" class="font-extrabold text-cyan-300 text-sm">--</span>
+                        <span id="l2-target-pinyin" class="text-xs text-slate-400 italic">(--)</span>
+                    </div>
+                    <button onclick="speakChineseText(document.getElementById('l2-target-word').innerText)" class="w-7 h-7 bg-white/5 border border-white/10 hover:bg-white/10 rounded-full flex items-center justify-center text-yellow-400">
+                        <i class="fa-solid fa-volume-high text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Game Space Area -->
+                <div class="flex-1 relative overflow-hidden flex flex-col justify-end" id="meteor-space">
+                    <!-- Meteor Elements will float here -->
+                </div>
+
+                <!-- Base Spaceship Graphic -->
+                <div class="w-full h-12 bg-slate-900/40 border-t border-slate-800 flex items-center justify-center z-10 relative">
+                    <div class="absolute -top-4 w-10 h-8 bg-purple-600 rounded-t-full flex items-center justify-center shadow-[0_-5px_15px_rgba(168,85,247,0.6)] animate-bounce">
+                        <div class="w-1.5 h-3 bg-cyan-400 rounded-full animate-ping"></div>
+                    </div>
+                    <p class="text-[10px] text-slate-500">ฐานพลังงานเกราะยานพิทักษ์ดวงดาว</p>
+                </div>
+            </div>
+
+            <!-- Controller panel (Fast Response Clickers) -->
+            <div id="meteor-controls" class="grid grid-cols-2 gap-3 mb-2">
+                <!-- Answer buttons dynamically generated -->
+            </div>
+        </section>
+
+        <!-- SCREEN 5: Level 3 Gameplay (Constellation Cryptography) -->
+        <section id="screen-game-l3" class="hidden flex-1 flex flex-col p-5 justify-between">
+            <!-- Header bar -->
+            <div class="flex items-center justify-between border-b border-slate-850 pb-3">
+                <button onclick="quitGamePrompt()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+                <div class="text-center">
+                    <span class="text-xs text-rose-400 tracking-widest font-semibold uppercase">ด่านที่ 3</span>
+                    <h4 class="text-sm font-bold">ประกอบดาว 寻星</h4>
+                </div>
+                <div class="flex items-center gap-1.5 bg-slate-900 px-2.5 py-1 rounded-full border border-slate-800 text-xs">
+                    <span id="l3-score" class="font-black text-rose-400">0</span>
+                    <span class="text-slate-500">แต้ม</span>
+                </div>
+            </div>
+
+            <!-- Interactive Constellation Node connector simulation -->
+            <div class="flex-1 flex flex-col justify-between py-4">
+                <div class="text-center">
+                    <span class="text-[10px] text-yellow-400 border border-yellow-500/20 bg-yellow-500/5 px-2.5 py-0.5 rounded-full font-bold">
+                        ถอดรหัสกลุ่มดาว: <span id="l3-const-thai">...</span>
+                    </span>
+                    <h3 class="text-4xl font-extrabold text-white mt-1.5 chinese-text" id="l3-const-chinese">...</h3>
+                    <p class="text-xs text-cyan-400 mt-1" id="l3-const-pinyin">...</p>
+                </div>
+
+                <!-- Star Grid Map where user connects the target paths -->
+                <div class="w-full aspect-square bg-slate-950 border border-slate-850 rounded-2xl relative overflow-hidden flex items-center justify-center" id="constellation-grid-map">
+                    <!-- Connect the line visual SVG canvas -->
+                    <svg class="absolute inset-0 w-full h-full pointer-events-none" id="l3-svg-connections"></svg>
+                    
+                    <!-- Stars nodes dynamically spawned by JS -->
+                    <div id="constellation-nodes-container" class="absolute inset-0 w-full h-full"></div>
+                </div>
+
+                <div class="text-center bg-slate-900/40 p-2.5 border border-slate-850 rounded-xl">
+                    <p class="text-xs text-slate-300 font-medium" id="l3-riddle-clue">คำแนะนำ: แตะเชื่อมปุ่มสัญลักษณ์ดาวฤกษ์ตามลำดับเสียงเพื่อให้เกิดขีดสัญกรณ์กลุ่มดาวมงคล!</p>
+                </div>
+            </div>
+
+            <!-- Controller panel -->
+            <div class="flex justify-between items-center gap-4 mb-2">
+                <button onclick="resetConstellation()" class="flex-1 bg-slate-900 hover:bg-slate-800 text-xs py-3 rounded-xl border border-slate-800 text-slate-400 font-semibold active:scale-95 transition">
+                    <i class="fa-solid fa-rotate-left mr-1"></i> เริ่มเชื่อมต่อใหม่
+                </button>
+                <button onclick="speakChineseText(document.getElementById('l3-const-chinese').innerText)" class="w-14 h-12 bg-yellow-600/20 hover:bg-yellow-600/30 text-yellow-400 rounded-xl border border-yellow-500/30 flex items-center justify-center active:scale-95 transition">
+                    <i class="fa-solid fa-volume-high text-lg"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- SCREEN 6: Cosmic Codex / Library of unlocked stars -->
+        <section id="screen-codex" class="hidden flex-1 flex flex-col p-6 overflow-y-auto">
+            <div class="flex items-center justify-between mb-6">
+                <button onclick="changeScreen('screen-home')" class="w-10 h-10 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-300 hover:bg-slate-800">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <h3 class="text-lg font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">คลังความรู้อวกาศ</h3>
+                <div class="w-10"></div>
+            </div>
+
+            <p class="text-xs text-slate-400 mb-4">แตะที่คำศัพท์เพื่อทบทวนคำแปล และฟังวิธีการออกเสียงภาษาจีนกลางที่ถูกต้อง</p>
+
+            <!-- Star Codex list -->
+            <div class="space-y-3 flex-1" id="codex-list">
+                <!-- Codex elements dynamic -->
+            </div>
+        </section>
+
+        
+        <!-- MODAL OVERLAYS (No window.alert() or window.confirm()) -->
+        
+        <!-- Feedback Modal: Correct/Incorrect -->
+        <div id="feedback-modal" class="hidden absolute inset-0 bg-slate-950/80 z-50 flex items-center justify-center p-6 backdrop-blur-sm">
+            <div class="w-full max-w-xs bg-slate-900 border border-slate-800 rounded-3xl p-6 text-center transform scale-95 transition-transform duration-300" id="feedback-box">
+                <div class="w-16 h-16 rounded-full mx-auto flex items-center justify-center text-3xl mb-4" id="feedback-icon-box">
+                    <i class="fa-solid fa-check text-emerald-400"></i>
+                </div>
+                <h4 class="text-xl font-bold" id="feedback-title">ถูกต้อง!</h4>
+                <p class="text-xs text-slate-400 mt-2" id="feedback-description">คุณตอบได้อย่างแม่นยำ</p>
+                <div class="mt-4 p-3 bg-slate-950/50 rounded-xl border border-slate-850">
+                    <span class="text-xs text-yellow-400 font-bold" id="feedback-chinese-word">木星</span>
+                    <p class="text-xs text-slate-300 mt-1" id="feedback-translation">ดาวพฤหัสบดี (Mùxīng)</p>
+                </div>
+                <button onclick="closeFeedbackModal()" class="mt-6 w-full py-3 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-xl text-white font-bold text-xs shadow-lg active:scale-95 transition">
+                    ผจญภัยด่านต่อไป
+                </button>
+            </div>
+        </div>
+
+        <!-- GameOver Modal -->
+        <div id="gameover-modal" class="hidden absolute inset-0 bg-slate-950/95 z-50 flex flex-col items-center justify-center p-6 text-center">
+            <div class="w-20 h-20 bg-rose-600/20 border border-rose-500/40 rounded-full flex items-center justify-center text-4xl mb-4 animate-pulse">
+                <i class="fa-solid fa-circle-exclamation text-rose-500 animate-bounce"></i>
+            </div>
+            <h3 class="text-2xl font-black text-rose-500">ระบบพลังงานหมด</h3>
+            <p class="text-slate-400 text-xs mt-2 max-w-[260px]">ระบบนำร่องภาษาจีนดวงดาวของคุณเกิดข้อผิดพลาดรุนแรง เกราะพลังงานเสียหาย</p>
+            
+            <div class="w-full max-w-xs bg-slate-900 border border-slate-800 p-4 rounded-2xl my-6">
+                <span class="text-xs text-slate-400 block">แต้มพลังงานด่านนี้</span>
+                <span class="text-4xl font-extrabold text-cyan-400" id="gameover-score">0</span>
+            </div>
+
+            <div class="w-full max-w-xs space-y-3">
+                <button onclick="restartCurrentLevel()" class="w-full py-3.5 bg-gradient-to-r from-rose-500 to-amber-600 rounded-xl text-white font-bold text-sm active:scale-95 transition shadow-lg">
+                    <i class="fa-solid fa-redo-alt mr-1"></i> ซ่อมบำรุงแล้วลองใหม่
+                </button>
+                <button onclick="changeScreen('screen-levels')" class="w-full py-3.5 bg-slate-900 border border-slate-800 text-slate-300 rounded-xl font-bold text-sm active:scale-95 transition">
+                    กลับไปยังแผนผังระดับ
+                </button>
+            </div>
+        </div>
+
+        <!-- Level Win Modal -->
+        <div id="levelwin-modal" class="hidden absolute inset-0 bg-slate-950/95 z-50 flex flex-col items-center justify-center p-6 text-center">
+            <div class="w-20 h-20 bg-yellow-500/20 border border-yellow-500/40 rounded-full flex items-center justify-center text-4xl mb-4 text-yellow-400">
+                <i class="fa-solid fa-trophy animate-pulse"></i>
+            </div>
+            <h3 class="text-2xl font-black text-yellow-400">ภารกิจดวงดาวสำเร็จ!</h3>
+            <p class="text-slate-400 text-xs mt-2 max-w-[260px]" id="levelwin-desc">คุณชำนาญความรู้ภาษาจีนดาราศาสตร์ในเส้นทางนี้แล้ว</p>
+            
+            <div class="w-full max-w-xs bg-slate-900 border border-slate-800 p-4 rounded-2xl my-6 grid grid-cols-2 gap-2">
+                <div>
+                    <span class="text-[10px] text-slate-500 block">รับเหรียญ</span>
+                    <span class="text-xl font-bold text-yellow-400"><i class="fa-solid fa-coins mr-1"></i>+50</span>
+                </div>
+                <div>
+                    <span class="text-[10px] text-slate-500 block">คะแนนสุดท้าย</span>
+                    <span class="text-xl font-bold text-cyan-400" id="levelwin-score">0</span>
+                </div>
+            </div>
+
+            <div class="w-full max-w-xs space-y-3">
+                <button onclick="changeScreen('screen-levels')" class="w-full py-3.5 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-xl text-white font-bold text-sm active:scale-95 transition shadow-lg">
+                    ออกไปแผนที่จักรวาล <i class="fa-solid fa-globe ml-1"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Game Info Guide Modal -->
+        <div id="instruction-modal" class="hidden absolute inset-0 bg-slate-950/90 z-50 flex items-center justify-center p-6 backdrop-blur-md">
+            <div class="w-full bg-slate-900 border border-slate-800 rounded-3xl p-6 relative">
+                <button onclick="closeInstructionModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+                <h4 class="text-lg font-bold text-cyan-400 mb-3"><i class="fa-solid fa-shuttle-space mr-2"></i> คำแนะนำการเป็นนักเดินทางดวงดาว</h4>
+                
+                <div class="space-y-4 text-xs text-slate-300 max-h-[300px] overflow-y-auto pr-2">
+                    <div class="p-3 bg-slate-950/50 rounded-xl">
+                        <strong class="text-yellow-400">🚀 ด่านที่ 1: ระบบสุริยะนำทาง (Solar Explorer)</strong>
+                        <p class="mt-1">แปลคำศัพท์ดาวเคราะห์ในระบบสุริยะจากรหัสพินอินและตัวอักษรจีนให้ถูกต้อง</p>
+                    </div>
+                    <div class="p-3 bg-slate-950/50 rounded-xl">
+                        <strong class="text-purple-400">☄️ ด่านที่ 2: ฝ่าฝูงอุกกาบาตดาวร่วง (Meteor Defense)</strong>
+                        <p class="mt-1">กวาดสายตามองหน้าจอคำถาม และรีบยิงสกัดอุกกาบาตที่มีความหมายถูกต้องรวดเร็วก่อนที่หัวใจเกราะยานแม่ของคุณจะลดลงจนเป็นศูนย์!</p>
+                    </div>
+                    <div class="p-3 bg-slate-950/50 rounded-xl">
+                        <strong class="text-rose-400">✨ ด่านที่ 3: ถอดรหัสประกอบดาว (Constellation Cryptography)</strong>
+                        <p class="mt-1">กดเชื่อมโยงดวงดาวที่ลอยอยู่กลางอารยธรรมโบราณให้ตรงกับชื่อภาษาจีนของกลุ่มดาวเป้าหมาย</p>
+                    </div>
+                </div>
+
+                <button onclick="closeInstructionModal()" class="mt-6 w-full py-3 bg-slate-800 hover:bg-slate-750 text-white font-semibold text-xs rounded-xl">
+                    เข้าใจแล้ว กางเกราะออกลุย!
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // --- DATA STRUCTURE: CHINESE ASTRONOMY DATA ---
+        const ASTRONOMY_DB = {
+            level1: [
+                { chinese: "太阳", pinyin: "Tàiyáng", thai: "ดวงอาทิตย์", emoji: "☀️", color: "from-amber-600 to-red-600", desc: "ดาวฤกษ์ดวงเดียวของระบบสุริยะ" },
+                { chinese: "水星", pinyin: "Shuǐxīng", thai: "ดาวพุธ", emoji: "🌑", color: "from-slate-600 to-indigo-800", desc: "ดาวเคราะห์ที่อยู่ใกล้ดวงอาทิตย์ที่สุด" },
+                { chinese: "金星", pinyin: "Jīnxīng", thai: "ดาวศุกร์", emoji: "🌕", color: "from-yellow-600 to-orange-800", desc: "ดาวเคราะห์ที่มีอุณหภูมิผิวสูงที่สุด" },
+                { chinese: "地球", pinyin: "Dìqiú", thai: "โลก", emoji: "🌍", color: "from-blue-600 to-cyan-800", desc: "ดาวเคราะห์ดวงเดียวที่ยืนยันการมีสิ่งมีชีวิต" },
+                { chinese: "火星", pinyin: "Huǒxīng", thai: "ดาวอังคาร", emoji: "🔴", color: "from-rose-600 to-red-800", desc: "ดาวเคราะห์สีแดงที่อุดมไปด้วยเหล็กออกไซด์" },
+                { chinese: "木星", pinyin: "Mùxīng", thai: "ดาวพฤหัสบดี", emoji: "🪐", color: "from-amber-700 to-yellow-800", desc: "ดาวเคราะห์ก๊าซที่มีขนาดใหญ่ที่สุด" },
+                { chinese: "土星", pinyin: "Tǔxīng", thai: "ดาวเสาร์", emoji: "🪐", color: "from-yellow-700 to-amber-900", desc: "ดาวเคราะห์ที่มีระบบวงแหวนที่สวยงามโดดเด่น" },
+                { chinese: "天王星", pinyin: "Tiānwángxīng", thai: "ดาวยูเรนัส", emoji: "🔵", color: "from-cyan-600 to-blue-800", desc: "ดาวเคราะห์น้ำแข็งยักษ์ที่มีมุมเอียงเกือบราบ" },
+                { chinese: "海王星", pinyin: "Hǎiwángxīng", thai: "ดาวเนปจูน", emoji: "🔵", color: "from-blue-700 to-indigo-900", desc: "ดาวเคราะห์ดวงสุดท้ายที่ได้รับพลังความร้อนต่ำสุด" }
+            ],
+            level2: [
+                { chinese: "恒星", pinyin: "Héngxīng", thai: "ดาวฤกษ์", emoji: "⭐" },
+                { chinese: "彗星", pinyin: "Huìxīng", thai: "ดาวหาง", emoji: "☄️" },
+                { chinese: "流星", pinyin: "Liúxīng", thai: "ดาวตก", emoji: "🌠" },
+                { chinese: "银河", pinyin: "Yínhé", thai: "ทางช้างเผือก", emoji: "🌌" },
+                { chinese: "黑洞", pinyin: "Hēidòng", thai: "หลุมดำ", emoji: "🕳️" },
+                { chinese: "宇宙", pinyin: "Yǔzhòu", thai: "จักรวาล", emoji: "🌌" },
+                { chinese: "星云", pinyin: "Xīngyún", thai: "เนบิวลา", emoji: "☁️" },
+                { chinese: "卫星", pinyin: "Wèixīng", thai: "ดาวบริวาร", emoji: "🛰️" }
+            ],
+            level3: [
+                { chinese: "北斗星", pinyin: "Běidǒuxīng", thai: "กลุ่มดาวหมีใหญ่ (กระบวยใหญ่)", pattern: [0, 1, 2, 3] },
+                { chinese: "织女星", pinyin: "Zhīnǚxīng", thai: "ดาวเวก้า (นางทอผ้า)", pattern: [1, 2, 0] },
+                { chinese: "牛郎星", pinyin: "Niúlángxīng", thai: "ดาวอัลแตร์ (ชายเลี้ยงวัว)", pattern: [0, 2, 3, 1] },
+                { chinese: "猎户座", pinyin: "Lièhùzuò", thai: "กลุ่มดาวนายพราน", pattern: [3, 0, 1, 2] }
+            ]
+        };
+
+        // --- WEB AUDIO SYNTHESIZER SOUND SYSTEM ---
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        let audioCtx = null;
+
+        function playSound(type) {
+            try {
+                if (!audioCtx) audioCtx = new AudioCtx();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                if (type === 'success') {
+                    osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.15);
+                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.2);
+                } else if (type === 'fail') {
+                    osc.frequency.setValueAtTime(220, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(110, audioCtx.currentTime + 0.2);
+                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.25);
+                } else if (type === 'click') {
+                    osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.06);
+                } else if (type === 'laser') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(150, audioCtx.currentTime + 0.15);
+                    gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.15);
+                }
+            } catch (err) {
+                console.log("Audio not supported or interaction deferred.");
+            }
+        }
+
+        // --- WEB SPEECH ENGINE (TEXT TO SPEECH) ---
+        function speakChineseText(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // Stop old pronunciation
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'zh-CN';
+                utterance.rate = 0.85; // slightly slower for better hearing
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // --- APP STATE ---
+        let currentLevel = 1;
+        let scoreL1 = 0;
+        let scoreL2 = 0;
+        let scoreL3 = 0;
+        let l2Hp = 3;
+        let l1QuestionIndex = 0;
+        let l1CurrentWord = null;
+        let l2TargetWord = null;
+        let l2Timer = null;
+        let l2MeteorInterval = null;
+        let currentL2Meteors = [];
+        let l3CurrentConst = null;
+        let l3UserConnections = [];
+        let unlockedWords = JSON.parse(localStorage.getItem('star_voyage_unlocked') || '[]');
+        let userGold = parseInt(localStorage.getItem('star_voyage_gold') || '150');
+
+        // --- STREAMING_CHUNK: Initializing interface elements on boot... ---
+        window.onload = function() {
+            // Build animated stars
+            const container = document.getElementById('starfield');
+            for (let i = 0; i < 60; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = `${Math.random() * 3}px`;
+                star.style.height = star.style.width;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                container.appendChild(star);
+            }
+            // Sync initial state displays
+            updateUserDisplays();
+            buildCodexList();
+        }
+
+        function updateUserDisplays() {
+            document.getElementById('user-gold').innerText = userGold;
+            document.getElementById('user-vocabulary').innerText = `${unlockedWords.length}/${ASTRONOMY_DB.level1.length + ASTRONOMY_DB.level2.length}`;
+            localStorage.setItem('star_voyage_gold', userGold);
+        }
+
+        function changeScreen(screenId) {
+            playSound('click');
+            
+            // Hide all active screens
+            document.querySelectorAll('section').forEach(screen => {
+                screen.classList.add('hidden');
+            });
+            
+            // Show target screen
+            document.getElementById(screenId).classList.remove('hidden');
+
+            // Reset current level updates if moving out of game zones
+            if (screenId === 'screen-levels' || screenId === 'screen-home') {
+                stopL2GameLoop();
+            }
+        }
+
+        // Modal triggers
+        function showInstructionModal() {
+            playSound('click');
+            document.getElementById('instruction-modal').classList.remove('hidden');
+        }
+        function closeInstructionModal() {
+            playSound('click');
+            document.getElementById('instruction-modal').classList.add('hidden');
+        }
+        function quitGamePrompt() {
+            playSound('click');
+            changeScreen('screen-levels');
+        }
+
+        // Unlock words helper
+        function unlockWord(wordObj) {
+            if (!unlockedWords.some(w => w.chinese === wordObj.chinese)) {
+                unlockedWords.push(wordObj);
+                localStorage.setItem('star_voyage_unlocked', JSON.stringify(unlockedWords));
+                userGold += 10; // Gold rewards for unlocking new terms!
+                updateUserDisplays();
+                buildCodexList();
+            }
+        }
+
+        // --- STREAMING_CHUNK: Level 1 - Solar Explorer Game System... ---
+        function startLevel(lvlNum) {
+            currentLevel = lvlNum;
+            if (lvlNum === 1) {
+                scoreL1 = 0;
+                l1QuestionIndex = 0;
+                document.getElementById('l1-score').innerText = scoreL1;
+                changeScreen('screen-game-l1');
+                loadL1Question();
+            } else if (lvlNum === 2) {
+                scoreL2 = 0;
+                l2Hp = 3;
+                document.getElementById('l2-score').innerText = scoreL2;
+                document.getElementById('l2-hp').innerText = "❤️".repeat(l2Hp);
+                document.getElementById('meteor-start-overlay').classList.remove('hidden');
+                changeScreen('screen-game-l2');
+            } else if (lvlNum === 3) {
+                scoreL3 = 0;
+                document.getElementById('l3-score').innerText = scoreL3;
+                changeScreen('screen-game-l3');
+                loadL3Constellation();
+            }
+        }
+
+        function loadL1Question() {
+            if (l1QuestionIndex >= ASTRONOMY_DB.level1.length) {
+                // Done level 1!
+                showLevelWinModal(scoreL1);
+                return;
+            }
+
+            l1CurrentWord = ASTRONOMY_DB.level1[l1QuestionIndex];
+            
+            // Set visuals
+            document.getElementById('l1-chinese').innerText = l1CurrentWord.chinese;
+            document.getElementById('l1-pinyin').innerText = l1CurrentWord.pinyin;
+            document.getElementById('l1-planet-icon').innerText = l1CurrentWord.emoji;
+            
+            // Adjust gradient color dynamically based on planet characteristics
+            const bgElement = document.getElementById('l1-planet-graphics');
+            bgElement.className = `relative z-10 w-28 h-28 rounded-full bg-gradient-to-tr ${l1CurrentWord.color} flex flex-col items-center justify-center shadow-xl transition-all duration-300`;
+            
+            // Generate multiple-choice answers
+            let answers = [l1CurrentWord.thai];
+            while (answers.length < 4) {
+                const randomVal = ASTRONOMY_DB.level1[Math.floor(Math.random() * ASTRONOMY_DB.level1.length)].thai;
+                if (!answers.includes(randomVal)) {
+                    answers.push(randomVal);
+                }
+            }
+            // Shuffle
+            answers.sort(() => Math.random() - 0.5);
+
+            // Populate choice buttons
+            const optionsBox = document.getElementById('l1-options');
+            optionsBox.innerHTML = '';
+            answers.forEach(ans => {
+                const btn = document.createElement('button');
+                btn.className = "py-4 px-3 bg-slate-900 border border-slate-800 hover:border-cyan-500 rounded-2xl text-xs font-semibold text-slate-200 transition duration-150 active:scale-95 text-center shadow-lg truncate";
+                btn.innerText = ans;
+                btn.onclick = () => checkL1Answer(ans);
+                optionsBox.appendChild(btn);
+            });
+
+            // Automatically speak word once to assist auditory learners!
+            setTimeout(() => { speakChineseText(l1CurrentWord.chinese); }, 400);
+        }
+
+        function checkL1Answer(selectedAnswer) {
+            if (selectedAnswer === l1CurrentWord.thai) {
+                scoreL1 += 10;
+                document.getElementById('l1-score').innerText = scoreL1;
+                unlockWord(l1CurrentWord);
+                showFeedbackModal(true, l1CurrentWord);
+            } else {
+                showFeedbackModal(false, l1CurrentWord);
+            }
+        }
+
+        // Feedback Modal Controls
+        function showFeedbackModal(isCorrect, wordObj) {
+            const modal = document.getElementById('feedback-modal');
+            const box = document.getElementById('feedback-box');
+            const iconBox = document.getElementById('feedback-icon-box');
+            const title = document.getElementById('feedback-title');
+            const desc = document.getElementById('feedback-description');
+            const chinW = document.getElementById('feedback-chinese-word');
+            const transl = document.getElementById('feedback-translation');
+
+            modal.classList.remove('hidden');
+            
+            chinW.innerText = wordObj.chinese;
+            transl.innerText = `${wordObj.thai} (${wordObj.pinyin})`;
+
+            if (isCorrect) {
+                playSound('success');
+                iconBox.className = "w-16 h-16 rounded-full mx-auto flex items-center justify-center text-3xl mb-4 bg-emerald-500/20 border border-emerald-500/40 text-emerald-400";
+                iconBox.innerHTML = '<i class="fa-solid fa-circle-check animate-pulse"></i>';
+                title.innerText = "ถอดรหัสผ่าน!";
+                title.className = "text-xl font-bold text-emerald-400";
+                desc.innerText = wordObj.desc || "ระบบเครื่องวัดจับพลังงานสำเร็จอย่างยอดเยี่ยม";
+            } else {
+                playSound('fail');
+                iconBox.className = "w-16 h-16 rounded-full mx-auto flex items-center justify-center text-3xl mb-4 bg-rose-500/20 border border-rose-500/40 text-rose-400";
+                iconBox.innerHTML = '<i class="fa-solid fa-circle-xmark"></i>';
+                title.innerText = "ระบบรหัสขัดข้อง!";
+                title.className = "text-xl font-bold text-rose-400";
+                desc.innerText = "การระบุสัญญานคลาดเคลื่อน ลองเรียนรู้อีกครั้งนะกัปตัน!";
+            }
+        }
+
+        function closeFeedbackModal() {
+            document.getElementById('feedback-modal').classList.add('hidden');
+            if (currentLevel === 1) {
+                l1QuestionIndex++;
+                loadL1Question();
+            } else if (currentLevel === 3) {
+                loadL3Constellation();
+            }
+        }
+
+        // --- STREAMING_CHUNK: Level 2 - Meteor Defense action loop... ---
+        function startMeteorGame() {
+            playSound('click');
+            document.getElementById('meteor-start-overlay').classList.add('hidden');
+            spawnL2Target();
+            
+            // Game Loop tickers
+            l2MeteorInterval = setInterval(spawnMeteorObject, 2500);
+        }
+
+        function stopL2GameLoop() {
+            clearInterval(l2MeteorInterval);
+            document.querySelectorAll('.meteor-item').forEach(m => m.remove());
+            currentL2Meteors = [];
+        }
+
+        function spawnL2Target() {
+            // Pick random target from level2 DB
+            const randWord = ASTRONOMY_DB.level2[Math.floor(Math.random() * ASTRONOMY_DB.level2.length)];
+            l2TargetWord = randWord;
+            
+            document.getElementById('l2-target-word').innerText = randWord.chinese;
+            document.getElementById('l2-target-pinyin').innerText = `(${randWord.pinyin})`;
+            
+            // Build dynamic reaction control buttons
+            const meteorControls = document.getElementById('meteor-controls');
+            meteorControls.innerHTML = '';
+            
+            // Gather incorrect choices
+            let choices = [randWord.thai];
+            while (choices.length < 4) {
+                const dummy = ASTRONOMY_DB.level2[Math.floor(Math.random() * ASTRONOMY_DB.level2.length)].thai;
+                if (!choices.includes(dummy)) {
+                    choices.push(dummy);
+                }
+            }
+            choices.sort(() => Math.random() - 0.5);
+
+            choices.forEach(ch => {
+                const btn = document.createElement('button');
+                btn.className = "py-3 bg-slate-900/90 border border-slate-800 text-slate-100 hover:border-purple-500 rounded-xl font-bold text-xs transition duration-150 active:scale-95 text-center shadow-md";
+                btn.innerText = ch;
+                btn.onclick = () => shootLaserDefense(ch);
+                meteorControls.appendChild(btn);
+            });
+
+            // Speak word audio
+            speakChineseText(l2TargetWord.chinese);
+        }
+
+        function spawnMeteorObject() {
+            const spaceContainer = document.getElementById('meteor-space');
+            if (!spaceContainer) return;
+
+            const meteor = document.createElement('div');
+            // Randomly select dictionary item
+            const randTerm = ASTRONOMY_DB.level2[Math.floor(Math.random() * ASTRONOMY_DB.level2.length)];
+            
+            meteor.className = "meteor-item absolute flex flex-col items-center select-none text-center transition-all duration-[6000ms] ease-linear z-10";
+            meteor.innerHTML = `
+                <div class="text-3xl filter drop-shadow-[0_0_8px_rgba(168,85,247,0.8)]">${randTerm.emoji}</div>
+                <div class="px-1.5 py-0.5 bg-slate-900/90 border border-purple-500/30 rounded-md text-[9px] mt-1 text-purple-300 font-bold">${randTerm.chinese}</div>
+            `;
+            
+            // Random X offset
+            const xOffset = Math.random() * 80; // 0% to 80% width
+            meteor.style.left = `${xOffset}%`;
+            meteor.style.top = `-50px`;
+            
+            spaceContainer.appendChild(meteor);
+            
+            // Record meta data
+            const meteorMeta = {
+                element: meteor,
+                data: randTerm
+            };
+            currentL2Meteors.push(meteorMeta);
+
+            // Animate moving downwards (simulate physics via tick delay)
+            setTimeout(() => {
+                meteor.style.top = '100%';
+            }, 50);
+
+            // Detect collision when hit bottom base
+            setTimeout(() => {
+                if (currentL2Meteors.includes(meteorMeta)) {
+                    // Exploded on base ship!
+                    spaceContainer.removeChild(meteor);
+                    currentL2Meteors = currentL2Meteors.filter(m => m !== meteorMeta);
+                    deductHp();
+                }
+            }, 6000);
+        }
+
+        function shootLaserDefense(choiceThai) {
+            playSound('laser');
+            
+            // Find if there is a matching target on space
+            const matches = currentL2Meteors.find(m => m.data.thai === choiceThai);
+
+            if (matches) {
+                // Correct target hit!
+                const meteorEl = matches.element;
+                
+                // Add mini visual explode effect
+                meteorEl.innerHTML = `<div class="text-3xl animate-ping">💥</div>`;
+                meteorEl.style.transition = 'none';
+                
+                setTimeout(() => {
+                    if (meteorEl.parentNode) {
+                        meteorEl.parentNode.removeChild(meteorEl);
+                    }
+                }, 400);
+
+                // Filter out the hit target
+                currentL2Meteors = currentL2Meteors.filter(m => m !== matches);
+
+                // Handle score updates
+                if (choiceThai === l2TargetWord.thai) {
+                    scoreL2 += 10;
+                    document.getElementById('l2-score').innerText = scoreL2;
+                    unlockWord(l2TargetWord);
+                    
+                    // Trigger success sound
+                    playSound('success');
+                    
+                    // Trigger next question
+                    if (scoreL2 >= 80) {
+                        // Winner!
+                        stopL2GameLoop();
+                        showLevelWinModal(scoreL2);
+                    } else {
+                        spawnL2Target();
+                    }
+                } else {
+                    // Shot down the wrong asteroid
+                    deductHp();
+                }
+            } else {
+                // Fired laser but hit nothing relevant
+                deductHp();
+            }
+        }
+
+        function deductHp() {
+            playSound('fail');
+            l2Hp--;
+            document.getElementById('l2-hp').innerText = "❤️".repeat(l2Hp);
+            
+            if (l2Hp <= 0) {
+                stopL2GameLoop();
+                showGameOverModal(scoreL2);
+            }
+        }
+
+        // --- STREAMING_CHUNK: Level 3 - Constellation Connect Puzzle Game... ---
+        function loadL3Constellation() {
+            // Select random constellation
+            l3CurrentConst = ASTRONOMY_DB.level3[Math.floor(Math.random() * ASTRONOMY_DB.level3.length)];
+            
+            document.getElementById('l3-const-thai').innerText = l3CurrentConst.thai;
+            document.getElementById('l3-const-chinese').innerText = l3CurrentConst.chinese;
+            document.getElementById('l3-const-pinyin').innerText = l3CurrentConst.pinyin;
+            
+            l3UserConnections = [];
+            
+            // Redraw Grid
+            drawConstellationGrid();
+            
+            // Automatically read target Chinese text
+            setTimeout(() => { speakChineseText(l3CurrentConst.chinese); }, 500);
+        }
+
+        function drawConstellationGrid() {
+            const nodesContainer = document.getElementById('constellation-nodes-container');
+            const svgCanvas = document.getElementById('l3-svg-connections');
+            
+            nodesContainer.innerHTML = '';
+            svgCanvas.innerHTML = ''; // Reset SVG paths
+
+            // Design node coordinates (simulate virtual stargazing matrix layout)
+            const coordinates = [
+                { x: 25, y: 30, index: 0, label: "🌟 ดาว 1" },
+                { x: 75, y: 25, index: 1, label: "🌟 ดาว 2" },
+                { x: 80, y: 70, index: 2, label: "🌟 ดาว 3" },
+                { x: 30, y: 75, index: 3, label: "🌟 ดาว 4" }
+            ];
+
+            coordinates.forEach(coord => {
+                const star = document.createElement('button');
+                star.className = "absolute w-10 h-10 rounded-full bg-slate-900 border border-yellow-500/50 text-[10px] text-yellow-400 font-bold flex items-center justify-center cursor-pointer transition transform active:scale-125 z-10 hover:bg-slate-850 shadow-md";
+                star.style.left = `calc(${coord.x}% - 20px)`;
+                star.style.top = `calc(${coord.y}% - 20px)`;
+                star.innerHTML = `★<span class="absolute top-7 bg-black/60 px-1 rounded text-[8px]">${coord.label}</span>`;
+                
+                star.onclick = () => selectConstellationNode(coord.index, coord.x, coord.y);
+                nodesContainer.appendChild(star);
+            });
+        }
+
+        function selectConstellationNode(index, percentX, percentY) {
+            playSound('click');
+            
+            // Prevent duplicated adjacent node clicks
+            if (l3UserConnections.some(node => node.index === index)) {
+                return;
+            }
+
+            l3UserConnections.push({ index, x: percentX, y: percentY });
+
+            // Draw line
+            if (l3UserConnections.length > 1) {
+                const prev = l3UserConnections[l3UserConnections.length - 2];
+                drawSvgLine(prev.x, prev.y, percentX, percentY);
+            }
+
+            // Verify solution
+            if (l3UserConnections.length === l3CurrentConst.pattern.length) {
+                // Check if user pattern matches correct pattern exactly
+                const isMatch = l3UserConnections.every((val, idx) => val.index === l3CurrentConst.pattern[idx]);
+
+                if (isMatch) {
+                    scoreL3 += 30;
+                    document.getElementById('l3-score').innerText = scoreL3;
+                    
+                    if (scoreL3 >= 90) {
+                        showLevelWinModal(scoreL3);
+                    } else {
+                        showFeedbackModal(true, {
+                            chinese: l3CurrentConst.chinese,
+                            thai: l3CurrentConst.thai,
+                            pinyin: l3CurrentConst.pinyin,
+                            desc: "กลุ่มดวงดาวโบราณประกายส่องสัญญานสำเร็จ!"
+                        });
+                    }
+                } else {
+                    playSound('fail');
+                    // Reset grid because error occurred
+                    setTimeout(() => {
+                        resetConstellation();
+                    }, 500);
+                }
+            }
+        }
+
+        function drawSvgLine(x1, y1, x2, y2) {
+            const svg = document.getElementById('l3-svg-connections');
+            const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            
+            line.setAttribute("x1", `${x1}%`);
+            line.setAttribute("y1", `${y1}%`);
+            line.setAttribute("x2", `${x2}%`);
+            line.setAttribute("y2", `${y2}%`);
+            line.setAttribute("stroke", "#eab308"); // Gold tone
+            line.setAttribute("stroke-width", "3");
+            line.setAttribute("stroke-dasharray", "4 4");
+            
+            svg.appendChild(line);
+        }
+
+        function resetConstellation() {
+            playSound('click');
+            l3UserConnections = [];
+            document.getElementById('l3-svg-connections').innerHTML = '';
+        }
+
+        // --- STREAMING_CHUNK: Codex Database UI Builder... ---
+        function buildCodexList() {
+            const codexBox = document.getElementById('codex-list');
+            codexBox.innerHTML = '';
+
+            const allVocabulary = [...ASTRONOMY_DB.level1, ...ASTRONOMY_DB.level2];
+
+            allVocabulary.forEach(item => {
+                const isUnlocked = unlockedWords.some(w => w.chinese === item.chinese);
+                const card = document.createElement('div');
+                
+                if (isUnlocked) {
+                    card.className = "bg-slate-900 border border-slate-800 rounded-xl p-3 flex items-center justify-between cursor-pointer hover:border-cyan-500/40 transition";
+                    card.onclick = () => speakChineseText(item.chinese);
+                    card.innerHTML = `
+                        <div class="flex items-center gap-3">
+                            <span class="text-xl">${item.emoji}</span>
+                            <div>
+                                <h5 class="text-sm font-bold text-white flex items-center gap-2">${item.thai} <i class="fa-solid fa-volume-high text-yellow-400 text-xs"></i></h5>
+                                <p class="text-xs text-slate-400">${item.pinyin}</p>
+                            </div>
+                        </div>
+                        <span class="text-lg font-black text-cyan-400 chinese-text">${item.chinese}</span>
+                    `;
+                } else {
+                    card.className = "bg-slate-950/40 border border-slate-900/60 rounded-xl p-3 flex items-center justify-between opacity-50";
+                    card.innerHTML = `
+                        <div class="flex items-center gap-3">
+                            <span class="text-xl">🔒</span>
+                            <div>
+                                <h5 class="text-sm font-bold text-slate-500">ยังไม่ปลดล็อค</h5>
+                                <p class="text-xs text-slate-600">คำศัพท์ดาราศาสตร์ลึกลับ</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-semibold text-slate-600">สแกนรหัสผ่าน</span>
+                    `;
+                }
+                codexBox.appendChild(card);
+            });
+        }
+
+        // GAME OUTCOME MODAL TRIGGER HANDLERS
+        function showGameOverModal(lvlScore) {
+            document.getElementById('gameover-score').innerText = lvlScore;
+            document.getElementById('gameover-modal').classList.remove('hidden');
+        }
+
+        function restartCurrentLevel() {
+            playSound('click');
+            document.getElementById('gameover-modal').classList.add('hidden');
+            startLevel(currentLevel);
+        }
+
+        function showLevelWinModal(lvlScore) {
+            document.getElementById('levelwin-score').innerText = lvlScore;
+            
+            // Give Reward
+            userGold += 50;
+            updateUserDisplays();
+            
+            document.getElementById('levelwin-modal').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
